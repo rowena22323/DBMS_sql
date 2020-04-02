@@ -1,0 +1,393 @@
+
+mysql> CREATE DATABASE drinks;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> USE drinks;
+Database changed
+mysql> CREATE TABLE easy_drinks;
+ERROR 1113 (42000): A table must have at least 1 column
+mysql> CREATE TABLE easy_drinks
+    -> (
+    -> drink_name VARCHAR(30),
+    -> main VARCHAR(20),
+    -> amount1 DECIMAL(10),
+    -> second VARCHAR(30),
+    -> amount2 DECIMAL(10),
+    -> directions BOLB 
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BOLB
+)' at line 8
+mysql> CREATE TABLE easy_drinks
+    -> (
+    -> drink_name VARCHAR(20) NOTNULL,
+    -> main VARCHAR(20) NOTNULL,
+    -> amount1 DECIMAL NOT 
+    -> second VARCHAR(20) NOTNULL,
+    -> amount2 DECIMAL NOTNULL,
+    -> directions BLOB NOTNULL
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NOTNULL,
+main VARCHAR(20) NOTNULL,
+amount1 DECIMAL NOT 
+second VARCHAR(20) NOTNU' at line 3
+mysql> CREATE TABLE easy_drinks
+    -> (drinks_name VARCHAR(16), main VARCHAR(20), amount1 DEC(3,1), second VARCHAR(20), amount2 DEC(4,2), directions VARCHAR(250));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO easy_drinks
+    -> VALUES
+    -> ('Blackthorn','tonic water',1.5,'pineapple juice',1,'stir with juice, strain into cocktail glass with lemon twist');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> INSERT INTO easy_drinks
+    -> VALUES
+    -> ('Blue Moon','soda',1.5,'blueberry juice',0.75,'stir with ice, strain into cocktail glass with lemon twist');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO easy_drinks
+    -> VALUES
+    -> ('Oh Mu Gosh','peach nectar',1,'pineapple juice',1,'stir with ice, strain into shot glass');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO easy_drinks
+    -> VALUES
+    -> ('Lime Fizz','Sprite',1.5,'lime juice',0.75,'stir with ice, strain into cocktail glass');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO easy_drinks
+    -> VALUES
+    -> ('Kiss on the Lips','cherry juice',2,'apricot nectar',7,'serve over ice with straw');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO easy_drinks
+    -> VALUES
+    -> ('Hot Gold','peach nectar',3,'orange juice',0.75,'pour hot orange juice in mug and add peach nectar'); 
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO easy_drinks
+    -> VALUES
+    -> ('Lone Tree','soda',1.5,'cherry juice',0.75,'stir with ice, strain into cocktail glass');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO easy_drinks
+    -> VALUES
+    -> ('Greyhound','soda',1.5,'grapefruit juice',5,'serve over ice, stir well');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO easy_drinks
+    -> VALUES
+    -> ('Indian Summer','apple juice',2,'hot tea',6,'add juice to mug and top off with hot tea');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO easy_drinks
+    -> VALUES
+    -> ('Bull Frog','iced tea',1.5,'lemonade',5,'serve over ice with lime slice');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO easy_drinks
+    -> VALUES
+    -> ('Soda and It','soda',2,'grape juice',1,'shake in cocktail glass, no ice');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> DESC easy_drinks;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| drinks_name | varchar(16)  | YES  |     | NULL    |       |
+| main        | varchar(20)  | YES  |     | NULL    |       |
+| amount1     | decimal(3,1) | YES  |     | NULL    |       |
+| second      | varchar(20)  | YES  |     | NULL    |       |
+| amount2     | decimal(4,2) | YES  |     | NULL    |       |
+| directions  | varchar(250) | YES  |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM easy_drinks;
++------------------+--------------+---------+------------------+---------+--------------------------------------------------------------+
+| drinks_name      | main         | amount1 | second           | amount2 | directions                                                   |
++------------------+--------------+---------+------------------+---------+--------------------------------------------------------------+
+| Blackthorn       | tonic water  |     1.5 | pineapple juice  |    1.00 | stir with juice, strain into cocktail glass with lemon twist |
+| Blue Moon        | soda         |     1.5 | blueberry juice  |    0.75 | stir with ice, strain into cocktail glass with lemon twist   |
+| Oh Mu Gosh       | peach nectar |     1.0 | pineapple juice  |    1.00 | stir with ice, strain into shot glass                        |
+| Lime Fizz        | Sprite       |     1.5 | lime juice       |    0.75 | stir with ice, strain into cocktail glass                    |
+| Kiss on the Lips | cherry juice |     2.0 | apricot nectar   |    7.00 | serve over ice with straw                                    |
+| Hot Gold         | peach nectar |     3.0 | orange juice     |    0.75 | pour hot orange juice in mug and add peach nectar            |
+| Lone Tree        | soda         |     1.5 | cherry juice     |    0.75 | stir with ice, strain into cocktail glass                    |
+| Greyhound        | soda         |     1.5 | grapefruit juice |    5.00 | serve over ice, stir well                                    |
+| Indian Summer    | apple juice  |     2.0 | hot tea          |    6.00 | add juice to mug and top off with hot tea                    |
+| Bull Frog        | iced tea     |     1.5 | lemonade         |    5.00 | serve over ice with lime slice                               |
+| Soda and It      | soda         |     2.0 | grape juice      |    1.00 | shake in cocktail glass, no ice                              |
++------------------+--------------+---------+------------------+---------+--------------------------------------------------------------+
+11 rows in set (0.00 sec)
+
+mysql> SELECT * FROM easy_drinks WHERE main = 'Sprite';
++-------------+--------+---------+------------+---------+-------------------------------------------+
+| drinks_name | main   | amount1 | second     | amount2 | directions                                |
++-------------+--------+---------+------------+---------+-------------------------------------------+
+| Lime Fizz   | Sprite |     1.5 | lime juice |    0.75 | stir with ice, strain into cocktail glass |
++-------------+--------+---------+------------+---------+-------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM easy_drinks WHERE main=soda;
+ERROR 1054 (42S22): Unknown column 'soda' in 'where clause'
+mysql> SELECT * FROM easy_drinks WHERE amount2=6;
++---------------+-------------+---------+---------+---------+-------------------------------------------+
+| drinks_name   | main        | amount1 | second  | amount2 | directions                                |
++---------------+-------------+---------+---------+---------+-------------------------------------------+
+| Indian Summer | apple juice |     2.0 | hot tea |    6.00 | add juice to mug and top off with hot tea |
++---------------+-------------+---------+---------+---------+-------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM easy_drinks WHERE second="orange juice";
++-------------+--------------+---------+--------------+---------+---------------------------------------------------+
+| drinks_name | main         | amount1 | second       | amount2 | directions                                        |
++-------------+--------------+---------+--------------+---------+---------------------------------------------------+
+| Hot Gold    | peach nectar |     3.0 | orange juice |    0.75 | pour hot orange juice in mug and add peach nectar |
++-------------+--------------+---------+--------------+---------+---------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM easy_drinks WHERE amount1<1.5;
++-------------+--------------+---------+-----------------+---------+---------------------------------------+
+| drinks_name | main         | amount1 | second          | amount2 | directions                            |
++-------------+--------------+---------+-----------------+---------+---------------------------------------+
+| Oh Mu Gosh  | peach nectar |     1.0 | pineapple juice |    1.00 | stir with ice, strain into shot glass |
++-------------+--------------+---------+-----------------+---------+---------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM easy_drinks WHERE amount2<'1';
++-------------+--------------+---------+-----------------+---------+------------------------------------------------------------+
+| drinks_name | main         | amount1 | second          | amount2 | directions                                                 |
++-------------+--------------+---------+-----------------+---------+------------------------------------------------------------+
+| Blue Moon   | soda         |     1.5 | blueberry juice |    0.75 | stir with ice, strain into cocktail glass with lemon twist |
+| Lime Fizz   | Sprite       |     1.5 | lime juice      |    0.75 | stir with ice, strain into cocktail glass                  |
+| Hot Gold    | peach nectar |     3.0 | orange juice    |    0.75 | pour hot orange juice in mug and add peach nectar          |
+| Lone Tree   | soda         |     1.5 | cherry juice    |    0.75 | stir with ice, strain into cocktail glass                  |
++-------------+--------------+---------+-----------------+---------+------------------------------------------------------------+
+4 rows in set (0.01 sec)
+
+mysql> SELECT * FROM easy_drinks WHERE main>'soda';
++-------------+-------------+---------+-----------------+---------+--------------------------------------------------------------+
+| drinks_name | main        | amount1 | second          | amount2 | directions                                                   |
++-------------+-------------+---------+-----------------+---------+--------------------------------------------------------------+
+| Blackthorn  | tonic water |     1.5 | pineapple juice |    1.00 | stir with juice, strain into cocktail glass with lemon twist |
+| Lime Fizz   | Sprite      |     1.5 | lime juice      |    0.75 | stir with ice, strain into cocktail glass                    |
++-------------+-------------+---------+-----------------+---------+--------------------------------------------------------------+
+2 rows in set (0.01 sec)
+
+mysql> SELECT * FROM easy_drinks WHERE amount1='1.5';
++-------------+-------------+---------+------------------+---------+--------------------------------------------------------------+
+| drinks_name | main        | amount1 | second           | amount2 | directions                                                   |
++-------------+-------------+---------+------------------+---------+--------------------------------------------------------------+
+| Blackthorn  | tonic water |     1.5 | pineapple juice  |    1.00 | stir with juice, strain into cocktail glass with lemon twist |
+| Blue Moon   | soda        |     1.5 | blueberry juice  |    0.75 | stir with ice, strain into cocktail glass with lemon twist   |
+| Lime Fizz   | Sprite      |     1.5 | lime juice       |    0.75 | stir with ice, strain into cocktail glass                    |
+| Lone Tree   | soda        |     1.5 | cherry juice     |    0.75 | stir with ice, strain into cocktail glass                    |
+| Greyhound   | soda        |     1.5 | grapefruit juice |    5.00 | serve over ice, stir well                                    |
+| Bull Frog   | iced tea    |     1.5 | lemonade         |    5.00 | serve over ice with lime slice                               |
++-------------+-------------+---------+------------------+---------+--------------------------------------------------------------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM easy_drinks WHERE second='orange juice';
++-------------+--------------+---------+--------------+---------+---------------------------------------------------+
+| drinks_name | main         | amount1 | second       | amount2 | directions                                        |
++-------------+--------------+---------+--------------+---------+---------------------------------------------------+
+| Hot Gold    | peach nectar |     3.0 | orange juice |    0.75 | pour hot orange juice in mug and add peach nectar |
++-------------+--------------+---------+--------------+---------+---------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM easy_drinks WHERE second=orange juice;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'juice' at line 1
+mysql> USE gregs_list;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> INSERT INTO my_contacts
+    -> VALUES
+    -> ('Funyon','Steve','steve@onionflavoredrings.com','M','1970-04-01','Punk','Grover's Mill,NJ','Single','smashing the states','compatriots,guitar players');
+    '> 
+    '> ';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 's Mill,NJ','Single','smashing the states','compatriots,guitar players');
+
+'' at line 3
+mysql> INSERT INTO my_contacts
+    -> VALUES
+    -> ('Funyon','Steve,'steve@onionflavoredrings.com','M','1970-04-01','Punk','Grover''s Mill,NJ','Single','smashing the states','compatriots,guitar players');
+    '> ';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'steve@onionflavoredrings.com','M','1970-04-01','Punk','Grover''s Mill,NJ','Singl' at line 3
+mysql> INSERT INTO my_contacts
+    -> VALUES
+    -> ('Funyon','Steve',steve@onionflavoredrings.com','M','1970-04-01','Punk','Grover\'s Mill,NJ','Single','smashing the states','compatriots, guitar players');
+ERROR: 
+Unknown command '\''.
+    '> 
+    '> ';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '@onionflavoredrings.com','M','1970-04-01','Punk','Grover\'s Mill,NJ','Single','s' at line 3
+mysql> mysql -version
+    -> 
+    -> ';
+    '> 
+    '> ';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysql -version
+
+';
+
+'' at line 1
+mysql> version
+    -> 
+
+^C
+
+mysql> mysqldump -p -u root gregs_list --hex-blob > gregs_list.sql
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysqldump -p -u root gregs_list --hex-blob > gregs_list.sql' at line 1
+mysql> INSERT INTO my_contacts
+    -> VALUES
+    -> ('Funyon','Steve','steve@onionflavoredrings.com','M','1970-04-01','Punk','Grover/'s Mill, NJ','Single','smashing the state','compatriots, guitar players');
+    '> ';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 's Mill, NJ','Single','smashing the state','compatriots, guitar players');
+'' at line 3
+mysql> INSERT INTO my_contacts
+    -> VALUES
+    -> ('Funyon','Steve','steve@onionflavoredrings.com','M','1970-04-01','Punk',Grover' 's Mill,NJ','Single','smashing the state','compatriots,guitar players');
+    '> ;
+    '> ';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' 's Mill,NJ','Single','smashing the state','compatriots,guitar players');
+;
+'' at line 3
+mysql> exit
+Bye
+
+mysql> use gregs_list;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> desc gregs_list;
+ERROR 1146 (42S02): Table 'gregs_list.gregs_list' doesn't exist
+mysql> desc my_contacts;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| last_name  | varchar(30)  | NO   |     | NULL    |       |
+| first_name | varchar(20)  | NO   |     | NULL    |       |
+| email      | varchar(50)  | NO   |     | NULL    |       |
+| gender     | char(1)      | NO   |     | NULL    |       |
+| birthday   | date         | NO   |     | NULL    |       |
+| profession | varchar(50)  | NO   |     | NULL    |       |
+| location   | varchar(50)  | NO   |     | NULL    |       |
+| status     | varchar(50)  | NO   |     | NULL    |       |
+| interests  | varchar(50)  | NO   |     | NULL    |       |
+| seeking    | varchar(100) | NO   |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+10 rows in set (0.00 sec)
+
+mysql> INSERT INTO my_contacts
+    -> VALUES
+    -> ('Funyon','Steve','steve@onionflavoredrings.com','M','1970-04-01','Punk','Grover\'s Mill,NJ','Single','smashing the state','compatriots, guitarplayers');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM my_contacts;
++-----------+------------+------------------------------+--------+------------+------------------+------------------+--------+--------------------+----------------------------+
+| last_name | first_name | email                        | gender | birthday   | profession       | location         | status | interests          | seeking                    |
++-----------+------------+------------------------------+--------+------------+------------------+------------------+--------+--------------------+----------------------------+
+| Anderson  | Jillian    | jillian@breakneckpizza.com   | F      | 1980-09-05 | Technical Writer | palo alto,CA     | single | Kayaking, Reptiles | Relationship,Friends       |
+| Funyon    | Steve      | steve@onionflavoredrings.com | M      | 1970-04-01 | Punk             | Grover's Mill,NJ | Single | smashing the state | compatriots, guitarplayers |
++-----------+------------+------------------------------+--------+------------+------------------+------------------+--------+--------------------+----------------------------+
+2 rows in set (0.00 sec)
+
+mysql> USE DATABASE drinks;
+ERROR 1049 (42000): Unknown database 'database'
+mysql> USE drinks;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> SELECT drink_name, main, second FROM easy_drinks WHERE main='soda';
+ERROR 1054 (42S22): Unknown column 'drink_name' in 'field list'
+mysql> SELECT drinks_name, main, second FROM easy_drinks WHERE main='soda';
++-------------+------+------------------+
+| drinks_name | main | second           |
++-------------+------+------------------+
+| Blue Moon   | soda | blueberry juice  |
+| Lone Tree   | soda | cherry juice     |
+| Greyhound   | soda | grapefruit juice |
+| Soda and It | soda | grape juice      |
++-------------+------+------------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT dirnks_name, main, second FROM easy_drinks;
+ERROR 1054 (42S22): Unknown column 'dirnks_name' in 'field list'
+mysql> SELECT drinks_nake, main, second FROM easy_drinks;
+ERROR 1054 (42S22): Unknown column 'drinks_nake' in 'field list'
+mysql> SELECT drinks_name, main, second FROM easy_drinks;
++------------------+--------------+------------------+
+| drinks_name      | main         | second           |
++------------------+--------------+------------------+
+| Blackthorn       | tonic water  | pineapple juice  |
+| Blue Moon        | soda         | blueberry juice  |
+| Oh Mu Gosh       | peach nectar | pineapple juice  |
+| Lime Fizz        | Sprite       | lime juice       |
+| Kiss on the Lips | cherry juice | apricot nectar   |
+| Hot Gold         | peach nectar | orange juice     |
+| Lone Tree        | soda         | cherry juice     |
+| Greyhound        | soda         | grapefruit juice |
+| Indian Summer    | apple juice  | hot tea          |
+| Bull Frog        | iced tea     | lemonade         |
+| Soda and It      | soda         | grape juice      |
++------------------+--------------+------------------+
+11 rows in set (0.00 sec)
+
+mysql> SELECT drinks_name FROM easy_drinks 
+    -> WHERE
+    -> amount1=2;
++------------------+
+| drinks_name      |
++------------------+
+| Kiss on the Lips |
+| Indian Summer    |
+| Soda and It      |
++------------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT drinks_name FROM easy_drinks
+    -> WHERE
+    -> drinks_name='cherry juice'
+    -> ;
+Empty set (0.00 sec)
+
+mysql> SELECT drinks_name FROM easy_drinks
+    -> WHERE 
+    -> drinks_name='Kiss on the Lips';
++------------------+
+| drinks_name      |
++------------------+
+| Kiss on the Lips |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT drinks_name FROM easy_drinks WHERE second='apricot nectar';
++------------------+
+| drinks_name      |
++------------------+
+| Kiss on the Lips |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT drinks_name FROM easy_drinks WHERE amount2=7;
++------------------+
+| drinks_name      |
++------------------+
+| Kiss on the Lips |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT drinks_name FROM easy_drinks WHERE directions='serve over ice with straw';
++------------------+
+| drinks_name      |
++------------------+
+| Kiss on the Lips |
++------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT drinks_name FROM easy_drinks WHERE directions='serve over ice with straw';
