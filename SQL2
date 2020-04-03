@@ -1,0 +1,467 @@
+
+mysql> use easy_drinks;
+ERROR 1049 (42000): Unknown database 'easy_drinks'
+mysql> use drinks;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> SELECT drinks_name FROM easy_drinks WHERE main='soda' AND amount1=1.5;
++-------------+
+| drinks_name |
++-------------+
+| Blue Moon   |
+| Lone Tree   |
+| Greyhound   |
++-------------+
+3 rows in set (0.01 sec)
+
+mysql> SELECT drinks_name FROM easy_drinks WHERE main='soda' AND amount1=2;
++-------------+
+| drinks_name |
++-------------+
+| Soda and It |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT drinks_name FROM easy_drinks WHERE main='soda' AND amount1>1;
++-------------+
+| drinks_name |
++-------------+
+| Blue Moon   |
+| Lone Tree   |
+| Greyhound   |
+| Soda and It |
++-------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT drinks_name FROM easy_drinks WHERE main='soda' BETWEEN amount1=1.5 AND amount1=2;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '=1.5 AND amount1=2' at line 1
+mysql> SELECT drinks_name FROM easy_drinks WHERE main='soda' BETWEEN amount1>=1.5 AND amount1<=2;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '>=1.5 AND amount1<=2' at line 1
+mysql> SELECT drinks_name FROM easy_drinks WHERE main='soda' amount1=1.5 AND amount1=2;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'amount1=1.5 AND amount1=2' at line 1
+mysql> SELECT drinks_name FROM easy_drinks WHERE main='soda' 1.5=amount1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '1.5=amount1' at line 1
+mysql> CREATE TABLE drink_info
+    -> (
+    -> drink_name VARCHAR(20) NOT NULL,
+    -> cost DEC(2,1) NOT NULL,
+    -> carbs DEC(2,1) NOT NULL,
+    -> color VARCHAR(20) NOT NULL,
+    -> ice CHAR(1) NOT NULL,
+    -> calories INT(5) NOT NULL
+    -> );
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+
+mysql> INSERT INTO drink_info
+    -> VALUES
+    -> ('Blackthorn',3,8.4,'yellow','Y',33);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO drink_info
+    -> VALUES
+    -> ('Blue Moon',2.5,3.2,'blue','Y',12);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO drink_info
+    -> VALUES
+    -> ('Oh My Gosh',3.5,8.6,'orange','Y',35);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO drink_info
+    -> VALUES
+    -> ('Lime Fizz',2.5,5.4,'green','Y',24);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO drink_info
+    -> VALUES
+    -> ('Kiss on the Lips',5.5,42.5,'purple','Y',171);
+ERROR 1264 (22003): Out of range value for column 'carbs' at row 1
+mysql> INSERT INTO drink_info
+    -> VALUES
+    -> ('Kiss on the Lips',5.5,4.5,'purple','Y',171);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO drink_info
+    -> VALUES
+    -> ('Hot Gold',3.2,3.1,'orange','N',135);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO drink_info
+    -> VALUES
+    -> ('Lone Tree',3.6,4.2,'red','Y',17);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO drink_info
+    -> VALUES
+    -> ('Greyhound',4,14,'yellow','Y',50);
+ERROR 1264 (22003): Out of range value for column 'carbs' at row 1
+mysql> INSERT INTO drink_info
+    -> VALUES
+    -> ('Greyhound',4,4.1,'yellow','Y',50);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO drink_info
+    -> VALUES
+    -> ('Indian Summer',2.8,7.2,'brown','N',30);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO drink_info
+    -> VALUES
+    -> ('Bull Frog',2.6,2.5,'tan','Y',80);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO drink_info
+    -> VALUES
+    -> ('Soda and It',3.8,4.7,'red','N',19);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM drink_info;
++------------------+------+-------+--------+-----+----------+
+| drink_name       | cost | carbs | color  | ice | calories |
++------------------+------+-------+--------+-----+----------+
+| Blackthorn       |  3.0 |   8.4 | yellow | Y   |       33 |
+| Blue Moon        |  2.5 |   3.2 | blue   | Y   |       12 |
+| Oh My Gosh       |  3.5 |   8.6 | orange | Y   |       35 |
+| Lime Fizz        |  2.5 |   5.4 | green  | Y   |       24 |
+| Kiss on the Lips |  5.5 |   4.5 | purple | Y   |      171 |
+| Hot Gold         |  3.2 |   3.1 | orange | N   |      135 |
+| Lone Tree        |  3.6 |   4.2 | red    | Y   |       17 |
+| Greyhound        |  4.0 |   4.1 | yellow | Y   |       50 |
+| Indian Summer    |  2.8 |   7.2 | brown  | N   |       30 |
+| Bull Frog        |  2.6 |   2.5 | tan    | Y   |       80 |
+| Soda and It      |  3.8 |   4.7 | red    | N   |       19 |
++------------------+------+-------+--------+-----+----------+
+11 rows in set (0.00 sec)
+
+mysql> SELECT cost FROM drink_info WHERE ice='Y' AND color='yellow';
++------+
+| cost |
++------+
+|  3.0 |
+|  4.0 |
++------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT cost FROM drink_info WHERE ice='Y' AND color='yellow' AND calories>=33;
++------+
+| cost |
++------+
+|  3.0 |
+|  4.0 |
++------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT drink_name, cost FROM drink_info WHERE calories>=80;
++------------------+------+
+| drink_name       | cost |
++------------------+------+
+| Kiss on the Lips |  5.5 |
+| Hot Gold         |  3.2 |
+| Bull Frog        |  2.6 |
++------------------+------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT color, ice FROM drink_info WHERE carbs>4;
++--------+-----+
+| color  | ice |
++--------+-----+
+| yellow | Y   |
+| orange | Y   |
+| green  | Y   |
+| purple | Y   |
+| red    | Y   |
+| yellow | Y   |
+| brown  | N   |
+| red    | N   |
++--------+-----+
+8 rows in set (0.00 sec)
+
+mysql> SELECT drink_name
+    -> FROM drink_info
+    -> WHERE
+    -> frink_name>='L'
+    -> AND
+    -> 
+
+^C
+mysql> SELECT drink_name FROM drink_info WHERE drink_name>='L' AND drink_name<'M';
++------------+
+| drink_name |
++------------+
+| Lime Fizz  |
+| Lone Tree  |
++------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT drinks_name FROM easy_drink WHERE main='orange juice' or main='apple juice';
+ERROR 1146 (42S02): Table 'drinks.easy_drink' doesn't exist
+mysql> SELECT drinks_name FROM easy_drinks WHERE main'orange juice' or main='apple juice';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''orange juice' or main='apple juice'' at line 1
+mysql> SELECT drinks_name FROM easy_drinks WHERE main='orange juice' or main='apple juice';
++---------------+
+| drinks_name   |
++---------------+
+| Indian Summer |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> use gregs_list;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> DESC doughnut_ratings;
+ERROR 1146 (42S02): Table 'gregs_list.doughnut_ratings' doesn't exist
+mysql> CREATE TABLE doughnut_ratings
+    -> (location VARCHAR(30) NOT NULL,
+    -> time TIME NOT NULL,
+    -> date DATE NOT NULL,
+    -> type VARCHAR(30) NOT NULL,
+    -> rating INT(10) NOT NULL,
+    -> comments VARCHAR(30) NOT NULL);
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+
+mysql> INSERT INTO doughnut_ratings
+    -> VALUES
+    -> ('Krispy King','08:50','09-27','plain glazed',10,'almost perfect');
+ERROR 1292 (22007): Incorrect date value: '09-27' for column 'date' at row 1
+mysql> INSERT INTO doughnut_ratings
+    -> VALUES
+    -> ('Krispy King','08:50',09-27,'plain glazed',10,'almost perfect');
+ERROR 1292 (22007): Incorrect date value: '-18' for column 'date' at row 1
+mysql> INSERT INTO doughnut_ratings VALUES ('Krispy King','08:50',9/27,'plain glazed',10,'almost perfect');
+ERROR 1292 (22007): Incorrect date value: '0.333333333' for column 'date' at row 1
+mysql> INSERT INTO doughnut_ratings VALUES ('Krispy King','08:50','9/27','plain glazed',10,'almost perfect');
+ERROR 1292 (22007): Incorrect date value: '9/27' for column 'date' at row 1
+mysql> INSERT INTO doughnut_ratings VALUES ('Krispy King','08:50','2020-09-27','plain glazed',10,'almost perfect');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO dounghnut_ratings VALUES('Duncan\'s Doughnut','08:59','2020-08-25','NULL'6,'greasy');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '6,'greasy')' at line 1
+mysql> INSERT INTO doughnut_ratings VALUES('Duncan\'s Doughnut','08:59','2020-08-25','nothing',6,'greasy');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO doughnut_ratings VALUES('Starbuzz Coffee','19:35','2020-05-24','cinnamon cake',5,'state, but tasty');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO doughnut_ratings VALUES('Duncan\'s Doughnut','19:03','2020-04-26','jelly',7,'not enough jelly');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM doughnut_ratings;
++-------------------+----------+------------+---------------+--------+------------------+
+| location          | time     | date       | type          | rating | comments         |
++-------------------+----------+------------+---------------+--------+------------------+
+| Krispy King       | 08:50:00 | 2020-09-27 | plain glazed  |     10 | almost perfect   |
+| Duncan's Doughnut | 08:59:00 | 2020-08-25 | nothing       |      6 | greasy           |
+| Starbuzz Coffee   | 19:35:00 | 2020-05-24 | cinnamon cake |      5 | state, but tasty |
+| Duncan's Doughnut | 19:03:00 | 2020-04-26 | jelly         |      7 | not enough jelly |
++-------------------+----------+------------+---------------+--------+------------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT type FROM doughnut_ratings WEHRE location='Krispy King' AND rating <>6;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'location='Krispy King' AND rating <>6' at line 1
+mysql> SELECT type FROM doughnut_ratings WEHRE location='Krispy King' AND rating=3;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'location='Krispy King' AND rating=3' at line 1
+mysql> SELECT type FROM doughnut_ratings WEHRE location='Snappy Bagel' AND rating >=6;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'location='Snappy Bagel' AND rating >=6' at line 1
+mysql> SELECT type FROM doughnut_ratings WEHRE location='Snappy Bagel' OR rating=6;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'location='Snappy Bagel' OR rating=6' at line 1
+mysql> SELECT type FROM doughnut_ratings WEHRE location='Krispy King' OR rating=3;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'location='Krispy King' OR rating=3' at line 1
+mysql> SELECT type FROM doughnut_ratings WEHRE location='Krispy King' OR rating > 5;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'location='Krispy King' OR rating > 5' at line 1
+mysql> 
+mysql> SELECT type FROM doughnut_ratings WHERE location='Krispy King' AND rating=3;
+Empty set (0.00 sec)
+
+mysql> SELECT type FROM doughnut_ratings WHERE location='Krispy King' OR rating=3;
++--------------+
+| type         |
++--------------+
+| plain glazed |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT type FROM doughnut_ratings WHERE location='Krispy King' OR rating>5;
++--------------+
+| type         |
++--------------+
+| plain glazed |
+| nothing      |
+| jelly        |
++--------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT type FROM doughnut_ratings WHERE location='Snappy Bagel' OR rating=6;
++---------+
+| type    |
++---------+
+| nothing |
++---------+
+1 row in set (0.00 sec)
+
+mysql> SELECT type FROM doughnut_ratings WHERE location='Snappy Bagel' AND rating>=6;
+Empty set (0.00 sec)
+
+mysql> SELECT type FROM doughnut_ratings WHERE location='Krispy King', AND rating<>6;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ', AND rating<>6' at line 1
+mysql> SELECT type FROM doughnut_ratings WHERE location='Krispy King' AND rating<>6;
++--------------+
+| type         |
++--------------+
+| plain glazed |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> use gregs_list;
+Database changed
+mysql> SELECT * FROM my_contacts
+    -> WEHRE location LIKE '%CA';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'location LIKE '%CA'' at line 2
+mysql> SELECT * FROM my_contacts WEHRE location LIKE %CA
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'location LIKE %CA' at line 1
+mysql> SELECT * FROM my_contacts WEHRE location IS LIKE '%CA';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'location IS LIKE '%CA'' at line 1
+mysql> SELECT * FROM my_contacts WEHRE location LIKE '%,CA';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'location LIKE '%,CA'' at line 1
+mysql> SELECT * FROM my_contacts WEHRE location LIKE '%CA';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'location LIKE '%CA'' at line 1
+mysql> SELECT * FROM my_contacts WEHERE location LIKE '%CA';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'location LIKE '%CA'' at line 1
+mysql> SELECT * FROM my_contacts WHERE location LIKE '%CA';
++-----------+------------+----------------------------+--------+------------+------------------+--------------+--------+--------------------+----------------------+
+| last_name | first_name | email                      | gender | birthday   | profession       | location     | status | interests          | seeking              |
++-----------+------------+----------------------------+--------+------------+------------------+--------------+--------+--------------------+----------------------+
+| Anderson  | Jillian    | jillian@breakneckpizza.com | F      | 1980-09-05 | Technical Writer | palo alto,CA | single | Kayaking, Reptiles | Relationship,Friends |
++-----------+------------+----------------------------+--------+------------+------------------+--------------+--------+--------------------+----------------------+
+1 row in set (0.00 sec)
+
+mysql> use drink
+ERROR 1049 (42000): Unknown database 'drink'
+mysql> use drink;
+ERROR 1049 (42000): Unknown database 'drink'
+mysql> use drinks;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> SELECT drink_name FROM drink_info WHERE calories BETWEEN 30 AND 60;
++---------------+
+| drink_name    |
++---------------+
+| Blackthorn    |
+| Oh My Gosh    |
+| Greyhound     |
+| Indian Summer |
++---------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT drink_name FROM drink_info WHERE calories < 30 AND calories > 60;
+Empty set (0.00 sec)
+
+mysql> SELECT drink_name FROM drink_info WHERE calories < 30 OR calories > 60;
++------------------+
+| drink_name       |
++------------------+
+| Blue Moon        |
+| Lime Fizz        |
+| Kiss on the Lips |
+| Hot Gold         |
+| Lone Tree        |
+| Bull Frog        |
+| Soda and It      |
++------------------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT drink_name FROM drink_info WHERE drink_name BETWEEN G% AND O%;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AND O%' at line 1
+mysql> SELECT drink_name FROM drink_info WHERE drink_name BETWEEN G% AND O%;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AND O%' at line 1
+mysql> SELECT drink_name FROM drink_info WHERE drink_name BETWEEN G AND O;
+ERROR 1054 (42S22): Unknown column 'G' in 'where clause'
+mysql> SELECT drink_name FROM drink_info WHERE drink_name BETWEEN 'G' AND 'O';
++------------------+
+| drink_name       |
++------------------+
+| Lime Fizz        |
+| Kiss on the Lips |
+| Hot Gold         |
+| Lone Tree        |
+| Greyhound        |
+| Indian Summer    |
++------------------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT drink_name FROM drink_info WHERE calories BETWEEN 60 AND 30;
+Empty set (0.00 sec)
+
+mysql> SELECT drink_name FROM drink_info WHERE carbs NOT IN (3,4,5);
++------------------+
+| drink_name       |
++------------------+
+| Blackthorn       |
+| Blue Moon        |
+| Oh My Gosh       |
+| Lime Fizz        |
+| Kiss on the Lips |
+| Hot Gold         |
+| Lone Tree        |
+| Greyhound        |
+| Indian Summer    |
+| Bull Frog        |
+| Soda and It      |
++------------------+
+11 rows in set (0.00 sec)
+
+mysql> SELECT drink_name FROM drink_info WHERE NOT carbs BETWEEN 3 AND 5;
++---------------+
+| drink_name    |
++---------------+
+| Blackthorn    |
+| Oh My Gosh    |
+| Lime Fizz     |
+| Indian Summer |
+| Bull Frog     |
++---------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT drink_name FROM drink_info WHERE NOT carbs >=3 OR carbs <=5;
++------------------+
+| drink_name       |
++------------------+
+| Blue Moon        |
+| Kiss on the Lips |
+| Hot Gold         |
+| Lone Tree        |
+| Greyhound        |
+| Bull Frog        |
+| Soda and It      |
++------------------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT drink_name FROM drink_info WHERE NOT carbs >=3 OR NOT carbs <=5;
++---------------+
+| drink_name    |
++---------------+
+| Blackthorn    |
+| Oh My Gosh    |
+| Lime Fizz     |
+| Indian Summer |
+| Bull Frog     |
++---------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT drink_name FROM drink_info WHERE carbs<3 OR carbs>5;
++---------------+
+| drink_name    |
++---------------+
+| Blackthorn    |
+| Oh My Gosh    |
+| Lime Fizz     |
+| Indian Summer |
+| Bull Frog     |
++---------------+
+5 rows in set (0.00 sec)
