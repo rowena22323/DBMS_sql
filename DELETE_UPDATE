@@ -1,0 +1,666 @@
+mysql> use gregs_list;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> CREATE TABLE clown_info
+    -> (name VARCHAR(20),
+    -> last_seen VARCHAR(50),
+    -> appearance VARCHAR(100),
+    -> activities VARCHAR(50));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> INSERT INTO clown_info
+    -> VALUES
+    -> ('Elsie','Cherry Hill Senior Center','F,red hair,green dress,huge feet','balloons,little car');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO clown_info VALUES ('Pickles','Jack Green\'s Party','M,orange hair,blue suit,huge feet','mime');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO clown_info VALUES ('Snuggles','Ball-Mart','F,yellow-shirt,baggy red pants','horn,umbrella');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO clown_info VALUES ('Mr.Hobo','BG Circus','M,cigar,black hair,tiny hat','violin');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO clown_info VALUES ('Clarabelle','Belmont Senior Center','F,pink hair,huge flower,blue dress','yelling,dancing');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO clown_info VALUES ('Scooter','Oakland Hospital','M,blue hair,red suit,huge nose','balloons');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO clown_info VALUES('Zippo','Milestone Mall','F,orange suit,baggy pants','dancing');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO clown_info VALUES ('Babe','Earl\'s Autos','F,all pink and sparkly','balancing,little car');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO clown_info
+    -> (name,appearance,activities)
+    -> VALUES
+    -> ('Bonzo','M,in drag,polka dotted dress','singing,dancing');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO clown_info
+    -> (name,last_seen,appearance)
+    -> VALUES
+    -> ('Sniffles','Tracy\'s','M,green and purple suit,pointy nose');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM clown_info;
++------------+---------------------------+-------------------------------------+----------------------+
+| name       | last_seen                 | appearance                          | activities           |
++------------+---------------------------+-------------------------------------+----------------------+
+| Elsie      | Cherry Hill Senior Center | F,red hair,green dress,huge feet    | balloons,little car  |
+| Pickles    | Jack Green's Party        | M,orange hair,blue suit,huge feet   | mime                 |
+| Snuggles   | Ball-Mart                 | F,yellow-shirt,baggy red pants      | horn,umbrella        |
+| Mr.Hobo    | BG Circus                 | M,cigar,black hair,tiny hat         | violin               |
+| Clarabelle | Belmont Senior Center     | F,pink hair,huge flower,blue dress  | yelling,dancing      |
+| Scooter    | Oakland Hospital          | M,blue hair,red suit,huge nose      | balloons             |
+| Zippo      | Milestone Mall            | F,orange suit,baggy pants           | dancing              |
+| Babe       | Earl's Autos              | F,all pink and sparkly              | balancing,little car |
+| Bonzo      | NULL                      | M,in drag,polka dotted dress        | singing,dancing      |
+| Sniffles   | Tracy's                   | M,green and purple suit,pointy nose | NULL                 |
++------------+---------------------------+-------------------------------------+----------------------+
+10 rows in set (0.00 sec)
+
+mysql> INSERT INTO clown_info VALUES ('Zippo','Milestone Mall','F,orange suit,baggy pants','dancing,singing');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO clown_info VALUES ('Snuggles','Ball Mart','F,yellow shirt,baggy blue pants','horn,umbrella');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO clown_info 
+    -> VALUES
+    -> ('Bonzo','Dickson\'s Park','M,in drag,polka dotted dress','singing,dansing');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO clown_info VALUES ('Sniffles','Tracy\'s','M,green and purple suit,pointy nose','climbing into tiny car');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO clown_info VALUES ('Mr.Hobo','Party for Eric Gray','M,cigar,black hair,tiny hat','violin');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM clown_info;
++------------+---------------------------+-------------------------------------+------------------------+
+| name       | last_seen                 | appearance                          | activities             |
++------------+---------------------------+-------------------------------------+------------------------+
+| Elsie      | Cherry Hill Senior Center | F,red hair,green dress,huge feet    | balloons,little car    |
+| Pickles    | Jack Green's Party        | M,orange hair,blue suit,huge feet   | mime                   |
+| Snuggles   | Ball-Mart                 | F,yellow-shirt,baggy red pants      | horn,umbrella          |
+| Mr.Hobo    | BG Circus                 | M,cigar,black hair,tiny hat         | violin                 |
+| Clarabelle | Belmont Senior Center     | F,pink hair,huge flower,blue dress  | yelling,dancing        |
+| Scooter    | Oakland Hospital          | M,blue hair,red suit,huge nose      | balloons               |
+| Zippo      | Milestone Mall            | F,orange suit,baggy pants           | dancing                |
+| Babe       | Earl's Autos              | F,all pink and sparkly              | balancing,little car   |
+| Bonzo      | NULL                      | M,in drag,polka dotted dress        | singing,dancing        |
+| Sniffles   | Tracy's                   | M,green and purple suit,pointy nose | NULL                   |
+| Zippo      | Milestone Mall            | F,orange suit,baggy pants           | dancing,singing        |
+| Snuggles   | Ball Mart                 | F,yellow shirt,baggy blue pants     | horn,umbrella          |
+| Bonzo      | Dickson's Park            | M,in drag,polka dotted dress        | singing,dansing        |
+| Sniffles   | Tracy's                   | M,green and purple suit,pointy nose | climbing into tiny car |
+| Mr.Hobo    | Party for Eric Gray       | M,cigar,black hair,tiny hat         | violin                 |
++------------+---------------------------+-------------------------------------+------------------------+
+15 rows in set (0.00 sec)
+
+mysql> SELECT * FROM clown_info WHERE name='Zippo';
++-------+----------------+---------------------------+-----------------+
+| name  | last_seen      | appearance                | activities      |
++-------+----------------+---------------------------+-----------------+
+| Zippo | Milestone Mall | F,orange suit,baggy pants | dancing         |
+| Zippo | Milestone Mall | F,orange suit,baggy pants | dancing,singing |
++-------+----------------+---------------------------+-----------------+
+2 rows in set (0.00 sec)
+
+mysql> DELETE FROM clown_info WHERE activities='dancing';
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM clown_info;
++------------+---------------------------+-------------------------------------+------------------------+
+| name       | last_seen                 | appearance                          | activities             |
++------------+---------------------------+-------------------------------------+------------------------+
+| Elsie      | Cherry Hill Senior Center | F,red hair,green dress,huge feet    | balloons,little car    |
+| Pickles    | Jack Green's Party        | M,orange hair,blue suit,huge feet   | mime                   |
+| Snuggles   | Ball-Mart                 | F,yellow-shirt,baggy red pants      | horn,umbrella          |
+| Mr.Hobo    | BG Circus                 | M,cigar,black hair,tiny hat         | violin                 |
+| Clarabelle | Belmont Senior Center     | F,pink hair,huge flower,blue dress  | yelling,dancing        |
+| Scooter    | Oakland Hospital          | M,blue hair,red suit,huge nose      | balloons               |
+| Babe       | Earl's Autos              | F,all pink and sparkly              | balancing,little car   |
+| Bonzo      | NULL                      | M,in drag,polka dotted dress        | singing,dancing        |
+| Sniffles   | Tracy's                   | M,green and purple suit,pointy nose | NULL                   |
+| Zippo      | Milestone Mall            | F,orange suit,baggy pants           | dancing,singing        |
+| Snuggles   | Ball Mart                 | F,yellow shirt,baggy blue pants     | horn,umbrella          |
+| Bonzo      | Dickson's Park            | M,in drag,polka dotted dress        | singing,dansing        |
+| Sniffles   | Tracy's                   | M,green and purple suit,pointy nose | climbing into tiny car |
+| Mr.Hobo    | Party for Eric Gray       | M,cigar,black hair,tiny hat         | violin                 |
++------------+---------------------------+-------------------------------------+------------------------+
+14 rows in set (0.00 sec)
+
+mysql> DROP TABLE doughnut_ratings;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE doughnut_ratings
+    -> (location VARCHAR(20),
+    -> time TIME,
+    -> date VARCHAR(10),
+    -> type VARCHAR(20),
+    -> rating INT,
+    -> comments VARCHAR(30));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO doughnut_ratings VALUES ('Krispy King','08:50 am','9/27','plain glazed',10,'almost perfect');
+ERROR 1292 (22007): Incorrect time value: '08:50 am' for column 'time' at row 1
+mysql> INSERT INTO doughnut_ratings VALUES ('Krispy King','08:50','9/27','plain glazed',10,'almost perfect');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO doughnut_ratings 
+    -> (location,time,date,rating,comments)
+    -> VALUES
+    -> ('Duncan\'s Doughnuts','08:59','8/25',6,'greasy');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO doughnut_ratings VALUES ('Starbuzz Coffee','07:35','5/24','cinnamon cake',5,'state,but tasty');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO doughnut_ratings VALUES ('Duncan\'s Doughnuts',07:03','4/26','jelly',7,'not enough jelly');
+    '> 
+
+^C
+mysql> INSERT INTO doughnut_ratings VALUES ('Duncan\'s Doughnuts','07:03','4/26','jelly',7,'not enough jelly');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM doughnut_ratings;
++--------------------+----------+------+---------------+--------+------------------+
+| location           | time     | date | type          | rating | comments         |
++--------------------+----------+------+---------------+--------+------------------+
+| Krispy King        | 08:50:00 | 9/27 | plain glazed  |     10 | almost perfect   |
+| Duncan's Doughnuts | 08:59:00 | 8/25 | NULL          |      6 | greasy           |
+| Starbuzz Coffee    | 07:35:00 | 5/24 | cinnamon cake |      5 | state,but tasty  |
+| Duncan's Doughnuts | 07:03:00 | 4/26 | jelly         |      7 | not enough jelly |
++--------------------+----------+------+---------------+--------+------------------+
+4 rows in set (0.00 sec)
+
+mysql> DELETE FROM doughnut_ratings WHERE location='Krispy King' AND rating <> 6;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM doughnut_ratings;
++--------------------+----------+------+---------------+--------+------------------+
+| location           | time     | date | type          | rating | comments         |
++--------------------+----------+------+---------------+--------+------------------+
+| Duncan's Doughnuts | 08:59:00 | 8/25 | NULL          |      6 | greasy           |
+| Starbuzz Coffee    | 07:35:00 | 5/24 | cinnamon cake |      5 | state,but tasty  |
+| Duncan's Doughnuts | 07:03:00 | 4/26 | jelly         |      7 | not enough jelly |
++--------------------+----------+------+---------------+--------+------------------+
+3 rows in set (0.00 sec)
+
+mysql> DELETE FROM doughnut_ratings WHERE location='Krispy King' AND rating=3;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SELECT * FROM doughnut_ratings;
++--------------------+----------+------+---------------+--------+------------------+
+| location           | time     | date | type          | rating | comments         |
++--------------------+----------+------+---------------+--------+------------------+
+| Duncan's Doughnuts | 08:59:00 | 8/25 | NULL          |      6 | greasy           |
+| Starbuzz Coffee    | 07:35:00 | 5/24 | cinnamon cake |      5 | state,but tasty  |
+| Duncan's Doughnuts | 07:03:00 | 4/26 | jelly         |      7 | not enough jelly |
++--------------------+----------+------+---------------+--------+------------------+
+3 rows in set (0.00 sec)
+
+mysql> DELETE FROM doughnut_ratings WHERE location='Snappy Bagel' AND rating >=6;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SELECT * FROM doughnut_ratings;
++--------------------+----------+------+---------------+--------+------------------+
+| location           | time     | date | type          | rating | comments         |
++--------------------+----------+------+---------------+--------+------------------+
+| Duncan's Doughnuts | 08:59:00 | 8/25 | NULL          |      6 | greasy           |
+| Starbuzz Coffee    | 07:35:00 | 5/24 | cinnamon cake |      5 | state,but tasty  |
+| Duncan's Doughnuts | 07:03:00 | 4/26 | jelly         |      7 | not enough jelly |
++--------------------+----------+------+---------------+--------+------------------+
+3 rows in set (0.00 sec)
+
+mysql> DELETE FROM doughnut_ratings WHERE location='Krispy King' OR rating>5;
+Query OK, 2 rows affected (0.00 sec)
+
+mysql> SELECT * FROM doughnut_ratings;
++-----------------+----------+------+---------------+--------+-----------------+
+| location        | time     | date | type          | rating | comments        |
++-----------------+----------+------+---------------+--------+-----------------+
+| Starbuzz Coffee | 07:35:00 | 5/24 | cinnamon cake |      5 | state,but tasty |
++-----------------+----------+------+---------------+--------+-----------------+
+1 row in set (0.00 sec)
+
+mysql> DELETE FROM doughnut_ratings WHERE location='Krispy King' OR rating=3;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> DELETE FROM doughnut_ratings WHERE location='Snappy Bagel' OR rating=3;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SELECT * FROM doughnut_ratings;
++-----------------+----------+------+---------------+--------+-----------------+
+| location        | time     | date | type          | rating | comments        |
++-----------------+----------+------+---------------+--------+-----------------+
+| Starbuzz Coffee | 07:35:00 | 5/24 | cinnamon cake |      5 | state,but tasty |
++-----------------+----------+------+---------------+--------+-----------------+
+1 row in set (0.00 sec)
+
+mysql> mysql> INSERT INTO clown_info VALUES ('Clarabelle','Belmont Senior Center','F,pink hair,huge flower,blue dress','dancing');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM clown_info;
++------------+---------------------------+-------------------------------------------+------------------------+
+| name       | last_seen                 | appearance                                | activities             |
++------------+---------------------------+-------------------------------------------+------------------------+
+| Elsie      | Cherry Hill Senior Center | F,red hair,green dress,huge feet          | balloons,little car    |
+| Pickles    | Jack Green's Party        | M,orange hair,blue suit,huge feet         | mime                   |
+| Snuggles   | Ball-Mart                 | F,yellow-shirt,baggy red pants            | horn,umbrella          |
+| Mr.Hobo    | BG Circus                 | M,cigar,black hair,tiny hat               | violin                 |
+| Clarabelle | Belmont Senior Center     | F,pink hair,huge flower,blue dress        | yelling,dancing        |
+| Scooter    | Oakland Hospital          | M,blue hair,red suit,huge nose            | balloons               |
+| Babe       | Earl's Autos              | F,all pink and sparkly                    | balancing,little car   |
+| Bonzo      | NULL                      | M,in drag,polka dotted dress              | singing,dancing        |
+| Sniffles   | Tracy's                   | M,green and purple suit,pointy nose       | NULL                   |
+| Zippo      | Milestone Mall            | F,orange suit,baggy pants                 | dancing,singing        |
+| Snuggles   | Ball Mart                 | F,yellow shirt,baggy blue pants           | horn,umbrella          |
+| Bonzo      | Dickson's Park            | M,in drag,polka dotted dress              | singing,dansing        |
+| Sniffles   | Tracy's                   | M,green and purple suit,pointy nose       | climbing into tiny car |
+| Mr.Hobo    | Party for Eric Gray       | M,cigar,black hair,tiny hat               | violin                 |
+| Clarabelle | Belmont Senior Center     | F,pink hair,huge flouge flower,blue dress | dancing                |
++------------+---------------------------+-------------------------------------------+------------------------+
+15 rows in set (0.00 sec)
+
+mysql> DELETE FROM clown_info WHERE name='Clarabelle' AND activities='yelling,dancing';
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM clown_info;
++------------+---------------------------+-------------------------------------------+------------------------+
+| name       | last_seen                 | appearance                                | activities             |
++------------+---------------------------+-------------------------------------------+------------------------+
+| Elsie      | Cherry Hill Senior Center | F,red hair,green dress,huge feet          | balloons,little car    |
+| Pickles    | Jack Green's Party        | M,orange hair,blue suit,huge feet         | mime                   |
+| Snuggles   | Ball-Mart                 | F,yellow-shirt,baggy red pants            | horn,umbrella          |
+| Mr.Hobo    | BG Circus                 | M,cigar,black hair,tiny hat               | violin                 |
+| Scooter    | Oakland Hospital          | M,blue hair,red suit,huge nose            | balloons               |
+| Babe       | Earl's Autos              | F,all pink and sparkly                    | balancing,little car   |
+| Bonzo      | NULL                      | M,in drag,polka dotted dress              | singing,dancing        |
+| Sniffles   | Tracy's                   | M,green and purple suit,pointy nose       | NULL                   |
+| Zippo      | Milestone Mall            | F,orange suit,baggy pants                 | dancing,singing        |
+| Snuggles   | Ball Mart                 | F,yellow shirt,baggy blue pants           | horn,umbrella          |
+| Bonzo      | Dickson's Park            | M,in drag,polka dotted dress              | singing,dansing        |
+| Sniffles   | Tracy's                   | M,green and purple suit,pointy nose       | climbing into tiny car |
+| Mr.Hobo    | Party for Eric Gray       | M,cigar,black hair,tiny hat               | violin                 |
+| Clarabelle | Belmont Senior Center     | F,pink hair,huge flouge flower,blue dress | dancing                |
++------------+---------------------------+-------------------------------------------+------------------------+
+14 rows in set (0.00 sec)
+
+mysql> USE drinks;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> DROP TABLE drink_info;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE drink_info
+    -> (drink_name VARCHAR(20) NOT NULL,
+    -> cost DECIMAL(3,1) NOT NULL,
+    -> carbs DECIMAL (3,1) NOT NULL,
+    -> color VARCHAR(10) NOT NULL,
+    -> ice CHAR(1) NOT NULL,
+    -> calories INT NOT NULL);
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> INSERT INTO drink_info VALUES ('Blackthorn',3,8.4,'yellow','Y',33);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO drink_info VALUES ('Blue Moon',2.5,3.2,'blue','Y',12);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO drink_info VALUES ('Oh My Gosh',3.5,8.6,'orange','Y',35);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO drink_info VALUES ('Lime Fizz',2.5,5.4,'green','Y',24);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO drink_info VALUES ('Kiss on the Lips',5.5,42.5,'purple','Y',171);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO drink_info VALUES ('Hot Gold',3.2,32.1,'orange','N',135);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO drink_info VALUES ('Lone Tree',3.6,4.2,'red','Y',17);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO drink_info VALUES ('Greyhound',4,14,'yellow','Y',50);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO drink_info VALUES ('Indian Summer',2.8,7.2,'brown','N',30);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO drink_info VALUES ('Bull Frog',2.6,21.5,'tan','Y',80);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO drink_info VALUES ('Soda and It',3.8,4.7,'red','N',19);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM drink_info;
++------------------+------+-------+--------+-----+----------+
+| drink_name       | cost | carbs | color  | ice | calories |
++------------------+------+-------+--------+-----+----------+
+| Blackthorn       |  3.0 |   8.4 | yellow | Y   |       33 |
+| Blue Moon        |  2.5 |   3.2 | blue   | Y   |       12 |
+| Oh My Gosh       |  3.5 |   8.6 | orange | Y   |       35 |
+| Lime Fizz        |  2.5 |   5.4 | green  | Y   |       24 |
+| Kiss on the Lips |  5.5 |  42.5 | purple | Y   |      171 |
+| Hot Gold         |  3.2 |  32.1 | orange | N   |      135 |
+| Lone Tree        |  3.6 |   4.2 | red    | Y   |       17 |
+| Greyhound        |  4.0 |  14.0 | yellow | Y   |       50 |
+| Indian Summer    |  2.8 |   7.2 | brown  | N   |       30 |
+| Bull Frog        |  2.6 |  21.5 | tan    | Y   |       80 |
+| Soda and It      |  3.8 |   4.7 | red    | N   |       19 |
++------------------+------+-------+--------+-----+----------+
+11 rows in set (0.00 sec)
+
+mysql> INSERT INTO drink_info VALUES ('Kiss on the Lips',5.5,42.5,'purple','Y',170);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> DELETE FROM drink_info WHERE calories=171;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM drink_info WHERE color='yellow';
++------------+------+-------+--------+-----+----------+
+| drink_name | cost | carbs | color  | ice | calories |
++------------+------+-------+--------+-----+----------+
+| Blackthorn |  3.0 |   8.4 | yellow | Y   |       33 |
+| Greyhound  |  4.0 |  14.0 | yellow | Y   |       50 |
++------------+------+-------+--------+-----+----------+
+2 rows in set (0.00 sec)
+
+mysql> INSERT INTO drink_info VALUES ('Blackthorn',3.0,8.4,'gold','Y',33);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO drink_info VALUES ('Greyhound',4.0,14.0,'gold','Y',50);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM drink_info WHERE cost=3.5;
++------------+------+-------+--------+-----+----------+
+| drink_name | cost | carbs | color  | ice | calories |
++------------+------+-------+--------+-----+----------+
+| Oh My Gosh |  3.5 |   8.6 | orange | Y   |       35 |
++------------+------+-------+--------+-----+----------+
+1 row in set (0.00 sec)
+
+mysql> INSERT INTO drink_info VALUES ('Oh My Gosh',4.5,8.6,'orange','Y',35);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> DELETE FROM drink_info WHERE color='yellow';
+Query OK, 2 rows affected (0.01 sec)
+
+mysql> DELETE FROM drink_info WHERE cost=3.5;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM drink_info WHERE cost=2.5;
++------------+------+-------+-------+-----+----------+
+| drink_name | cost | carbs | color | ice | calories |
++------------+------+-------+-------+-----+----------+
+| Blue Moon  |  2.5 |   3.2 | blue  | Y   |       12 |
+| Lime Fizz  |  2.5 |   5.4 | green | Y   |       24 |
++------------+------+-------+-------+-----+----------+
+2 rows in set (0.00 sec)
+
+mysql> INSERT INTO drink_info VALUES ('Blue Moon',2.5,3.2,'blue','Y',12);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO drink_info VALUES ('Blue Moon',3.5,3.2,'blue','Y',12);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO drink_info VALUES ('Lime Fizz',3.5,5.4,'green','Y',24);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> DELETE FROM drink_info WHERE cost=2.5;
+Query OK, 3 rows affected (0.01 sec)
+
+mysql> SELECT * FROM drink_info;
++------------------+------+-------+--------+-----+----------+
+| drink_name       | cost | carbs | color  | ice | calories |
++------------------+------+-------+--------+-----+----------+
+| Hot Gold         |  3.2 |  32.1 | orange | N   |      135 |
+| Lone Tree        |  3.6 |   4.2 | red    | Y   |       17 |
+| Indian Summer    |  2.8 |   7.2 | brown  | N   |       30 |
+| Bull Frog        |  2.6 |  21.5 | tan    | Y   |       80 |
+| Soda and It      |  3.8 |   4.7 | red    | N   |       19 |
+| Kiss on the Lips |  5.5 |  42.5 | purple | Y   |      170 |
+| Blackthorn       |  3.0 |   8.4 | gold   | Y   |       33 |
+| Greyhound        |  4.0 |  14.0 | gold   | Y   |       50 |
+| Oh My Gosh       |  4.5 |   8.6 | orange | Y   |       35 |
+| Blue Moon        |  3.5 |   3.2 | blue   | Y   |       12 |
+| Lime Fizz        |  3.5 |   5.4 | green  | Y   |       24 |
++------------------+------+-------+--------+-----+----------+
+11 rows in set (0.00 sec)
+
+mysql> USE gregs_list;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> DELETE FROM clown_info WHERE name='Mr.Hobo' AND last seen <> 'Trasy\'s;
+    '> ';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'seen <> 'Trasy\'s;
+'' at line 1
+mysql> DELETE FROM clown_info WHERE name='Mr.Hobo' AND last_seen <> 'Tracy\'s';
+Query OK, 2 rows affected (0.00 sec)
+
+mysql> clown_info
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'clown_info' at line 1
+mysql> VIEW clown_info;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'VIEW clown_info' at line 1
+mysql> SELECT * FROM clown_info;
++------------+---------------------------+-------------------------------------------+------------------------+
+| name       | last_seen                 | appearance                                | activities             |
++------------+---------------------------+-------------------------------------------+------------------------+
+| Elsie      | Cherry Hill Senior Center | F,red hair,green dress,huge feet          | balloons,little car    |
+| Pickles    | Jack Green's Party        | M,orange hair,blue suit,huge feet         | mime                   |
+| Snuggles   | Ball-Mart                 | F,yellow-shirt,baggy red pants            | horn,umbrella          |
+| Scooter    | Oakland Hospital          | M,blue hair,red suit,huge nose            | balloons               |
+| Babe       | Earl's Autos              | F,all pink and sparkly                    | balancing,little car   |
+| Bonzo      | NULL                      | M,in drag,polka dotted dress              | singing,dancing        |
+| Sniffles   | Tracy's                   | M,green and purple suit,pointy nose       | NULL                   |
+| Zippo      | Milestone Mall            | F,orange suit,baggy pants                 | dancing,singing        |
+| Snuggles   | Ball Mart                 | F,yellow shirt,baggy blue pants           | horn,umbrella          |
+| Bonzo      | Dickson's Park            | M,in drag,polka dotted dress              | singing,dansing        |
+| Sniffles   | Tracy's                   | M,green and purple suit,pointy nose       | climbing into tiny car |
+| Clarabelle | Belmont Senior Center     | F,pink hair,huge flouge flower,blue dress | dancing                |
++------------+---------------------------+-------------------------------------------+------------------------+
+12 rows in set (0.00 sec)
+
+mysql> INSERT INTO clown_info VALUES ('Mr.Hobo','Tracy\'s','M,cigar,black hair,tiny hat','violin');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> DELETE FROM clown_info WEHRE name='Mr.Hobo' AND last_seen <> 'Tracy\'s';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'name='Mr.Hobo' AND last_seen <> 'Tracy\'s'' at line 1
+mysql> DELETE FROM clown_info WHERE name='Mr.Hobo' AND last_seen <> 'Tracy\'s';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SLECT * FROM clown_info WHERE activities='dancing';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SLECT * FROM clown_info WHERE activities='dancing'' at line 1
+mysql> SELECT * FROM clown_info WHERE activities='dancing';
++------------+-----------------------+-------------------------------------------+------------+
+| name       | last_seen             | appearance                                | activities |
++------------+-----------------------+-------------------------------------------+------------+
+| Clarabelle | Belmont Senior Center | F,pink hair,huge flouge flower,blue dress | dancing    |
++------------+-----------------------+-------------------------------------------+------------+
+1 row in set (0.00 sec)
+
+mysql> INSERT INTO clown_info VALUES ('Clarabelle','Belmont Senior Center','F,pink hair,huge flower,blue dress','dancing,singing');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> DELETE FROM clown_info WHERE activities='dancing';
+Query OK, 1 row affected (0.01 sec)
+
+mysql> -A
+    -> 
+
+^C
+mysql> UPDATE doughnut_ratings SET type='glazed' WHERE type='plain glazed';
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> UPDATE doughnut_ratings SET type='cinnamon' WHERE type='cinnamon cake';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM doughnut_ratings;
++-----------------+----------+------+----------+--------+-----------------+
+| location        | time     | date | type     | rating | comments        |
++-----------------+----------+------+----------+--------+-----------------+
+| Starbuzz Coffee | 07:35:00 | 5/24 | cinnamon |      5 | state,but tasty |
++-----------------+----------+------+----------+--------+-----------------+
+1 row in set (0.00 sec)
+
+mysql> UPDATE clown_info SET last_seen='Tarcy\'s' WHERE name='Mr.Hobo' AND last_seen='Party for Eric Gray';
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> UPDATE clown_info SET last_seen='Party for Eric Gray' WHERE last_seen='Tracy'\s';
+--------------
+mysql  Ver 8.0.19 for osx10.15 on x86_64 (Homebrew)
+
+Connection id:		8
+Current database:	gregs_list
+Current user:		root@localhost
+SSL:			Not in use
+Current pager:		stdout
+Using outfile:		''
+Using delimiter:	;
+Server version:		8.0.18 MySQL Community Server - GPL
+Protocol version:	10
+Connection:		Localhost via UNIX socket
+Server characterset:	utf8mb4
+Db     characterset:	utf8mb4
+Client characterset:	utf8mb4
+Conn.  characterset:	utf8mb4
+UNIX socket:		/tmp/mysql.sock
+Binary data as:		Hexadecimal
+Uptime:			1 hour 56 min 5 sec
+
+Threads: 2  Questions: 116  Slow queries: 0  Opens: 146  Flush tables: 3  Open tables: 66  Queries per second avg: 0.016
+--------------
+
+    '> ';
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> SELECT * FROM clown_info;
++------------+---------------------------+-------------------------------------+------------------------+
+| name       | last_seen                 | appearance                          | activities             |
++------------+---------------------------+-------------------------------------+------------------------+
+| Elsie      | Cherry Hill Senior Center | F,red hair,green dress,huge feet    | balloons,little car    |
+| Pickles    | Jack Green's Party        | M,orange hair,blue suit,huge feet   | mime                   |
+| Snuggles   | Ball-Mart                 | F,yellow-shirt,baggy red pants      | horn,umbrella          |
+| Scooter    | Oakland Hospital          | M,blue hair,red suit,huge nose      | balloons               |
+| Babe       | Earl's Autos              | F,all pink and sparkly              | balancing,little car   |
+| Bonzo      | NULL                      | M,in drag,polka dotted dress        | singing,dancing        |
+| Sniffles   | Tracy's                   | M,green and purple suit,pointy nose | NULL                   |
+| Zippo      | Milestone Mall            | F,orange suit,baggy pants           | dancing,singing        |
+| Snuggles   | Ball Mart                 | F,yellow shirt,baggy blue pants     | horn,umbrella          |
+| Bonzo      | Dickson's Park            | M,in drag,polka dotted dress        | singing,dansing        |
+| Sniffles   | Tracy's                   | M,green and purple suit,pointy nose | climbing into tiny car |
+| Mr.Hobo    | Tracy's                   | M,cigar,black hair,tiny hat         | violin                 |
+| Clarabelle | Belmont Senior Center     | F,pink hair,huge flower,blue dress  | dancing,singing        |
++------------+---------------------------+-------------------------------------+------------------------+
+13 rows in set (0.00 sec)
+
+mysql> UPDATE clown_info SET last_seen='Party for Eric Gray' WHERE last_seen='Tracy\'s';
+Query OK, 3 rows affected (0.01 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> SELECT * FROM clown_info;
++------------+---------------------------+-------------------------------------+------------------------+
+| name       | last_seen                 | appearance                          | activities             |
++------------+---------------------------+-------------------------------------+------------------------+
+| Elsie      | Cherry Hill Senior Center | F,red hair,green dress,huge feet    | balloons,little car    |
+| Pickles    | Jack Green's Party        | M,orange hair,blue suit,huge feet   | mime                   |
+| Snuggles   | Ball-Mart                 | F,yellow-shirt,baggy red pants      | horn,umbrella          |
+| Scooter    | Oakland Hospital          | M,blue hair,red suit,huge nose      | balloons               |
+| Babe       | Earl's Autos              | F,all pink and sparkly              | balancing,little car   |
+| Bonzo      | NULL                      | M,in drag,polka dotted dress        | singing,dancing        |
+| Sniffles   | Party for Eric Gray       | M,green and purple suit,pointy nose | NULL                   |
+| Zippo      | Milestone Mall            | F,orange suit,baggy pants           | dancing,singing        |
+| Snuggles   | Ball Mart                 | F,yellow shirt,baggy blue pants     | horn,umbrella          |
+| Bonzo      | Dickson's Park            | M,in drag,polka dotted dress        | singing,dansing        |
+| Sniffles   | Party for Eric Gray       | M,green and purple suit,pointy nose | climbing into tiny car |
+| Mr.Hobo    | Party for Eric Gray       | M,cigar,black hair,tiny hat         | violin                 |
+| Clarabelle | Belmont Senior Center     | F,pink hair,huge flower,blue dress  | dancing,singing        |
++------------+---------------------------+-------------------------------------+------------------------+
+13 rows in set (0.00 sec)
+
+mysql> UPDATE clown_info SET appearance='F,baggy blue pants' WHERE name='Snuggle';
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> UPDATE clown_info SET appearance='F,baggy blue pants' WHERE name='Snuggles';
+Query OK, 2 rows affected (0.01 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> UPDATE clown_info SET last_seen='Dickson Park' WHERE name='Bonzo';
+Query OK, 2 rows affected (0.00 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> UPDATE clown_info SET activities='climbing into tiny car' WHERE name='Sniffles';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 2  Changed: 1  Warnings: 0
+
+mysql> UPDATE clown_info SET last_seen='Tracy\'s', WHERE name='Mr.Hobo';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE name='Mr.Hobo'' at line 1
+mysql> UPDATE clown_info SET last_seen='Tracy\'s' WHERE name='Mr.Hobo';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM clown_info;
++------------+---------------------------+-------------------------------------+------------------------+
+| name       | last_seen                 | appearance                          | activities             |
++------------+---------------------------+-------------------------------------+------------------------+
+| Elsie      | Cherry Hill Senior Center | F,red hair,green dress,huge feet    | balloons,little car    |
+| Pickles    | Jack Green's Party        | M,orange hair,blue suit,huge feet   | mime                   |
+| Snuggles   | Ball-Mart                 | F,baggy blue pants                  | horn,umbrella          |
+| Scooter    | Oakland Hospital          | M,blue hair,red suit,huge nose      | balloons               |
+| Babe       | Earl's Autos              | F,all pink and sparkly              | balancing,little car   |
+| Bonzo      | Dickson Park              | M,in drag,polka dotted dress        | singing,dancing        |
+| Sniffles   | Party for Eric Gray       | M,green and purple suit,pointy nose | climbing into tiny car |
+| Zippo      | Milestone Mall            | F,orange suit,baggy pants           | dancing,singing        |
+| Snuggles   | Ball Mart                 | F,baggy blue pants                  | horn,umbrella          |
+| Bonzo      | Dickson Park              | M,in drag,polka dotted dress        | singing,dansing        |
+| Sniffles   | Party for Eric Gray       | M,green and purple suit,pointy nose | climbing into tiny car |
+| Mr.Hobo    | Tracy's                   | M,cigar,black hair,tiny hat         | violin                 |
+| Clarabelle | Belmont Senior Center     | F,pink hair,huge flower,blue dress  | dancing,singing        |
++------------+---------------------------+-------------------------------------+------------------------+
+13 rows in set (0.00 sec)
+
+mysql> USE drinks;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> UPDATE drink_info SET cost=cost+1 WHERE cost>2;
+Query OK, 11 rows affected (0.00 sec)
+Rows matched: 11  Changed: 11  Warnings: 0
+
+mysql> SELECT * FROM drink_info;
++------------------+------+-------+--------+-----+----------+
+| drink_name       | cost | carbs | color  | ice | calories |
++------------------+------+-------+--------+-----+----------+
+| Hot Gold         |  4.2 |  32.1 | orange | N   |      135 |
+| Lone Tree        |  4.6 |   4.2 | red    | Y   |       17 |
+| Indian Summer    |  3.8 |   7.2 | brown  | N   |       30 |
+| Bull Frog        |  3.6 |  21.5 | tan    | Y   |       80 |
+| Soda and It      |  4.8 |   4.7 | red    | N   |       19 |
+| Kiss on the Lips |  6.5 |  42.5 | purple | Y   |      170 |
+| Blackthorn       |  4.0 |   8.4 | gold   | Y   |       33 |
+| Greyhound        |  5.0 |  14.0 | gold   | Y   |       50 |
+| Oh My Gosh       |  5.5 |   8.6 | orange | Y   |       35 |
+| Blue Moon        |  4.5 |   3.2 | blue   | Y   |       12 |
+| Lime Fizz        |  4.5 |   5.4 | green  | Y   |       24 |
++------------------+------+-------+--------+-----+----------+
+11 rows in set (0.00 sec)
