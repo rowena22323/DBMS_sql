@@ -1,34 +1,34 @@
 SELECT * FROM member;
 
--- 1. ê¸‰ì—¬ê°€ 14000ì—ì„œ 30000ì‚¬ì´ì— í¬í•¨ë˜ì§€ ì•ŠëŠ” ëª¨ë“  ì§ì›ì˜ ì´ë¦„ê³¼ ê¸‰ì—¬ í‘œì‹œ
+-- 1. ±Þ¿©°¡ 14000¿¡¼­ 30000»çÀÌ¿¡ Æ÷ÇÔµÇÁö ¾Ê´Â ¸ðµç Á÷¿øÀÇ ÀÌ¸§°ú ±Þ¿© Ç¥½Ã
 select name, sal from member where sal<14000 or sal>30000;
 
---2. ì§ì›ì˜ ì‚¬ë²ˆ, ì´ë¦„, ê¸‰ì—¬, 20%ì¸ìƒê¸‰ì—¬ í‘œì‹œ
-select member_id, name, sal, (sal*1.2)"ì¸ìƒ" from member;
+--2. Á÷¿øÀÇ »ç¹ø, ÀÌ¸§, ±Þ¿©, 20%ÀÎ»ó±Þ¿© Ç¥½Ã
+select member_id, name, sal, (sal*1.2)"ÀÎ»ó" from member;
 
---3. ê° ì§ì›ì˜ ê·¼ë¬´ ë‹¬ìˆ˜ë¥¼ í‘œì‹œí•˜ì‹­ì‹œì˜¤. / 4. ê²°ê³¼ëŠ” ì†Œìˆ˜ì  ë‘˜ì§¸ìžë¦¬ì—ì„œ ë°˜ì˜¬ë¦¼ í•©ë‹ˆë‹¤.
+--3. °¢ Á÷¿øÀÇ ±Ù¹« ´Þ¼ö¸¦ Ç¥½ÃÇÏ½Ê½Ã¿À. / 4. °á°ú´Â ¼Ò¼öÁ¡ µÑÂ°ÀÚ¸®¿¡¼­ ¹Ý¿Ã¸² ÇÕ´Ï´Ù.
 select name, round(MONTHS_BETWEEN(SYSDATE,hire),2) from member;
 
---5. ê° ì§ì›ì˜ ì´ë¦„, ê¸‰ì—¬ë¥¼ í‘œì‹œí•˜ëŠ” ì§ˆì˜ë¬¸. ê¸‰ì—¬ëŠ” 10ìžë¦¬ ê¸¸ì´ì— ì™¼ìª½ì— #í‘œì‹œê°€ì±„ì›Œì§€ëŠ” í˜•ì‹.
+--5. °¢ Á÷¿øÀÇ ÀÌ¸§, ±Þ¿©¸¦ Ç¥½ÃÇÏ´Â ÁúÀÇ¹®. ±Þ¿©´Â 10ÀÚ¸® ±æÀÌ¿¡ ¿ÞÂÊ¿¡ #Ç¥½Ã°¡Ã¤¿öÁö´Â Çü½Ä.
 select name, lpad(sal,10,'#') from member;
 
---6. ê° ì§ì›ì˜ ì‚¬ë²ˆ, ì´ë¦„, ìž…ì‚¬ì¼ê³¼ ìž…ì‚¬í•œ í›„ì— 10ë‹¬ì´ ê²½ê³¼ëœ ë‚ ì§œë¥¼ í‘œì‹œ ('yyyy-mm-dd')
+--6. °¢ Á÷¿øÀÇ »ç¹ø, ÀÌ¸§, ÀÔ»çÀÏ°ú ÀÔ»çÇÑ ÈÄ¿¡ 10´ÞÀÌ °æ°úµÈ ³¯Â¥¸¦ Ç¥½Ã ('yyyy-mm-dd')
 select member_id, name, hire,to_char(add_months(hire,10),'YYYY-MM-DD') from member;
 
---7.memberí…Œì´ë¸”ì—ì„œ ì‚¬ì›ì˜ ì´ë¦„, ì§ìœ„, ìž…ì‚¬ì¼ê³¼ ìž…ì‚¬í•œ ìš”ì¼ì„ í‘œì‹œí•˜ë˜, ì›”ìš”ì¼ì´ ì²˜ìŒìœ¼ë¡œ
+--7.memberÅ×ÀÌºí¿¡¼­ »ç¿øÀÇ ÀÌ¸§, Á÷À§, ÀÔ»çÀÏ°ú ÀÔ»çÇÑ ¿äÀÏÀ» Ç¥½ÃÇÏµÇ, ¿ù¿äÀÏÀÌ Ã³À½À¸·Î
 select name, to_char(hire,'day') from member order by to_char(hire-1,'d');
 
---8. ëª¨ë“  ì§ì›ì˜ ì´ë¦„, ì§ìœ„, ì§ìœ„ë³„ ë“±ê¸‰ í‘œì‹œ(A ~ E)
-select name, jikwi, decode(jikwi,'ì‚¬ìž¥','A','ë¶€ìž¥','B','ê³¼ìž¥','C','ëŒ€ë¦¬','D','ì‚¬ì›','E') "ë“±ê¸‰" from member;
+--8. ¸ðµç Á÷¿øÀÇ ÀÌ¸§, Á÷À§, Á÷À§º° µî±Þ Ç¥½Ã(A ~ E)
+select name, jikwi, decode(jikwi,'»çÀå','A','ºÎÀå','B','°úÀå','C','´ë¸®','D','»ç¿ø','E') "µî±Þ" from member;
 
---9. ê° ì§ì›ë“¤ì˜ ì´ë¦„ê³¼ ì—°ë´‰ì„ ê³„ì‚° (sal*12+bonus)
+--9. °¢ Á÷¿øµéÀÇ ÀÌ¸§°ú ¿¬ºÀÀ» °è»ê (sal*12+bonus)
 select name, (sal*12+nvl(bonus,0)) "salary" from member;
 
---10. 2004ë…„ì— ìž…ì‚¬í•œ ì§ì›ì˜ ì‚¬ë²ˆê³¼ ì´ë¦„ì„ í‘œì‹œ
+--10. 2004³â¿¡ ÀÔ»çÇÑ Á÷¿øÀÇ »ç¹ø°ú ÀÌ¸§À» Ç¥½Ã
 select member_id, name from member where to_char(hire,'yyyy')='2004';
 
---11. ê´€ë¦¬ìžê°€ ì—†ëŠ” ì§ì›ì˜ ì´ë¦„ê³¼ ì§ìœ„
+--11. °ü¸®ÀÚ°¡ ¾ø´Â Á÷¿øÀÇ ÀÌ¸§°ú Á÷À§
 select name, jikwi from member where mgr is null;
 
---12. ë³´ë„ˆìŠ¤ë¥¼ ë°›ì€ ì§ì›ì˜ ì´ë¦„ê³¼ ê¸‰ì—¬, ë³´ë„ˆìŠ¤ë¥¼ ê¸°ì¤€ìœ¼ë¡œ ë‚´ë¦¼ì°¨ìˆœ ì •ë ¬
+--12. º¸³Ê½º¸¦ ¹ÞÀº Á÷¿øÀÇ ÀÌ¸§°ú ±Þ¿©, º¸³Ê½º¸¦ ±âÁØÀ¸·Î ³»¸²Â÷¼ø Á¤·Ä
 select name, sal from member where bonus is not null order by bonus DESC;
