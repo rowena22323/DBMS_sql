@@ -31,3 +31,5 @@ solution.sql
 -- 코드를 입력하세요
 2
 SELECT count(distinct name) as cnt from animal_ins
+
+SELECT COUNT(animal_type) as cnt FROM animal_ins
