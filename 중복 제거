@@ -33,3 +33,5 @@ solution.sql
 SELECT count(distinct name) as cnt from animal_ins
 
 SELECT COUNT(animal_type) as cnt FROM animal_ins
+
+SELECT MIN(datetime) as '시간' from animal_ins
