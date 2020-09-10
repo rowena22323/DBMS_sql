@@ -1,0 +1,150 @@
+중성화 여부 파악하기
+문제 설명
+ANIMAL_INS 테이블은 동물 보호소에 들어온 동물의 정보를 담은 테이블입니다. ANIMAL_INS 테이블 구조는 다음과 같으며, ANIMAL_ID, ANIMAL_TYPE, DATETIME, INTAKE_CONDITION, NAME, SEX_UPON_INTAKE는 각각 동물의 아이디, 생물 종, 보호 시작일, 보호 시작 시 상태, 이름, 성별 및 중성화 여부를 나타냅니다.
+
+NAME	TYPE	NULLABLE
+ANIMAL_ID	VARCHAR(N)	FALSE
+ANIMAL_TYPE	VARCHAR(N)	FALSE
+DATETIME	DATETIME	FALSE
+INTAKE_CONDITION	VARCHAR(N)	FALSE
+NAME	VARCHAR(N)	TRUE
+SEX_UPON_INTAKE	VARCHAR(N)	FALSE
+보호소의 동물이 중성화되었는지 아닌지 파악하려 합니다. 중성화된 동물은 SEX_UPON_INTAKE 컬럼에 'Neutered' 또는 'Spayed'라는 단어가 들어있습니다. 동물의 아이디와 이름, 중성화 여부를 아이디 순으로 조회하는 SQL문을 작성해주세요. 이때 중성화가 되어있다면 'O', 아니라면 'X'라고 표시해주세요.
+
+예시
+예를 들어 ANIMAL_INS 테이블이 다음과 같다면
+
+ANIMAL_ID	ANIMAL_TYPE	DATETIME	INTAKE_CONDITION	NAME	SEX_UPON_INTAKE
+A355753	Dog	2015-09-10 13:14:00	Normal	Elijah	Neutered Male
+A373219	Cat	2014-07-29 11:43:00	Normal	Ella	Spayed Female
+A382192	Dog	2015-03-13 13:14:00	Normal	Maxwell 2	Intact Male
+중성화한 동물: Elijah, Ella
+중성화하지 않은 동물: Maxwell 2
+따라서 SQL문을 실행하면 다음과 같이 나와야 합니다.
+
+ANIMAL_ID	NAME	중성화
+A355753	Elijah	O
+A373219	Ella	O
+A382192	Maxwell 2	X
+※ 컬럼 이름은 일치하지 않아도 됩니다.
+
+본 문제는 Kaggle의 Austin Animal Center Shelter Intakes and Outcomes에서 제공하는 데이터를 사용하였으며 ODbL의 적용을 받습니다.
+
+solution.sql
+_
+1
+-- 코드를 입력하세요
+2
+SELECT ANIMAL_ID, NAME, CASE WHEN SEX_UPON_INTAKE LIKE 'Neutered%' OR SEX_UPON_INTAKE LIKE 'Spayed%' THEN 'O'
+3
+ELSE 'X'
+4
+END AS '중성화'
+5
+FROM ANIMAL_INS
+6
+​
+7
+​
+실행 결과
+ANIMAL_ID	NAME	중성화
+A349996	Sugar	O
+A350276	Jewel	O
+A350375	Meo	O
+A352555	Harley	O
+A352713	Gia	O
+A352872	Peanutbutter	O
+A353259	Bj	O
+A354540	Tux	O
+A354597	Ariel	O
+A354725	Kia	O
+A354753	Sammy	O
+A355519	Faith	O
+A355688	Shadow	O
+A355753	Elijah	O
+A357021	Queens	O
+A357444	Puppy	O
+A357846	Happy	O
+A358697	Fuzzo	O
+A358879	Simba	O
+A361391	Baby Bear	O
+A362103	Stitch	O
+A362383	*Morado	O
+A362707	Girly Girl	O
+A362967	Honey	O
+A363653	Goofy	O
+A364429	Hugo	O
+A365172	Diablo	O
+A365302	Minnie	O
+A367012	Miller	O
+A367438	Cookie	O
+A367747	Woody	O
+A368742	Stormy	O
+A368930		O
+A370439	Sniket	O
+A370507	Emily	O
+A370852	Katie	O
+A371000	Greg	O
+A371102	Ceballo	O
+A371344	Sailor	O
+A371534	April	O
+A373219	Ella	O
+A373687	Rosie	O
+A375393	Dash	O
+A376322	Mama Dog	O
+A376459	Dora	O
+A377750	Lucy	O
+A378348	Frijolito	O
+A378353	Lyla	X
+A378818	Zoe	O
+A378946	Mercedes	O
+A379998	Disciple	X
+A380009	Pickle	O
+A380320	Scooby	O
+A380420	Laika	O
+A380506	Ruby	O
+A381173	Pepper	O
+A381217	Cherokee	O
+A382192	Maxwell 2	X
+A382251	Princess	O
+A383036	Oreo	O
+A383964	Finney	O
+A384360	Jj	O
+A384568	Jedi	O
+A385442	Clyde	O
+A386005	Giovanni	O
+A386276	Tiko	O
+A386688	Punch	O
+A387083	Goldie	O
+A387965	Dakota	O
+A388360	Spider	O
+A388691	Blaze	O
+A390222	Holly	O
+A391512	Rome	O
+A391858	Nellie	O
+A392027	Penny	O
+A392075	Skips	O
+A392615	Chip	O
+A394547	Snickerdoodl	O
+A395451	Rogan	O
+A396810	Raven	O
+A397882	Charlie	O
+A399421	Lucy	O
+A399552	Jack	O
+A400498	Reggie	O
+A400680	Lucy	O
+A403564	Anna	O
+A405494	Kaila	O
+A406756	Sabrina	O
+A407156	Jake	O
+A408035	Lizzie	O
+A409637	Stanley	O
+A410330	Chewy	X
+A410668	Raven	O
+A410684	Mitty	O
+A412173	Jimminee	O
+A412626	*Sam	O
+A412697	Jackie	O
+A413789	Benji	O
+A414198	Shelly	O
+A414513	Rocky	O
